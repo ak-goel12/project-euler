@@ -1,0 +1,80 @@
+#include <map>
+#include <set>
+#include <list>
+#include <cmath>
+#include <ctime>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <string>
+#include <bitset>
+#include <cstdio>
+#include <limits>
+#include <vector>
+#include <climits>
+#include <cstring>
+#include <cstdlib>
+#include <fstream>
+#include <numeric>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
+#include <unordered_map>
+
+using namespace std;
+bool checkPrime(long n)
+{
+    for(long i=2;i<=sqrt(n);++i)
+    {
+        if(n%i==0)
+          return false;
+    }
+    return true;
+}
+
+int main(){
+    int t;
+    cin >> t;
+    for(int a0 = 0; a0 < t; a0++){
+        long n;
+        cin >> n;
+        if(checkPrime(n))
+            cout<<n<<endl;
+        else
+        {
+            long a=0,b=0,max=0;
+            for(long i=1;i<=sqrt(n);++i)
+            {
+                if(n%i==0)
+                {   
+                    if(i==n/i)
+                    {
+                        if(checkPrime(i))
+                        {
+                            if(max<i)
+                              max=i;
+                        }
+                    }
+                    else
+                        {
+                            if(checkPrime(i))
+                            {
+                                a=i;
+                            }
+                            if(checkPrime(n/i))
+                            {
+                                b=n/i;
+                            }
+                            if(a>b)
+                                max=a;
+                            else
+                                max=b;
+                        }
+                }
+            }
+            cout<<max<<endl;
+        }
+    }
+    return 0;
+}
+
