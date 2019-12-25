@@ -1,0 +1,81 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+typedef long long int ll;
+#define max 100000
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    ll t;
+     vector<ll> v;
+    for(ll i=3;i<100000;++i)
+    {
+        int f=0;
+        for(ll j=2;j<=sqrt(i);++j)
+        {
+            if(i%j==0)
+            {   
+                f=1;
+                break;
+            }
+        }
+        if(f==0)
+        v.emplace_back(i);
+        ++i;
+    }
+    ll ans=1;
+    vector<ll> div;
+    div.emplace_back(1);
+    for(ll i=2;i<max;++i)
+    {
+        ans=1;
+        ll k=i*(i+1);
+        k/=2;
+        ll cnt=0;
+        while(k%2==0)
+        {
+            k=k/2;
+            cnt++;
+        }
+        if(cnt>0)
+        {
+        ans=cnt*ans;
+        ans++;
+        }
+        ll m=0;
+        cnt=0;
+        for(ll j=0;k>1;++j)
+        {
+            while(k%v[j]==0)
+            {
+                k=k/v[j];
+                cnt++;
+            }
+            if(cnt>0)
+            {
+            ans=ans*(cnt+1);
+            cnt=0;
+            }
+        }
+        div.emplace_back(ans);
+    }
+       cin>>t;
+    while(t--){
+        ll a,p;
+        cin>>a;
+        for(int i=0;div[i];++i)
+        {
+            if(div[i]<=a)
+                continue;
+            else
+            {
+                p=i;
+                break;
+            }            
+        }
+        cout<<(((p+1)*(p+2))/2)<<endl;
+      }
+    return 0;
+}
