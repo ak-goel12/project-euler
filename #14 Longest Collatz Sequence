@@ -1,0 +1,72 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+typedef unsigned long long int ll;
+#define max 5000001
+    ll v[max];
+    ll m[max];
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    v[0]=0;
+    v[1]=0;
+    for(ll i=2;i<max;++i)
+    {   int f=0;
+        ll counter=0;
+        ll k=i;
+                while(k>1 and f==0)
+                {
+
+                    if(k%2==0)
+                    {
+                               k=k/2;
+                        if(k<max and v[k]!=0)
+                        {
+                            v[i]=v[k]+counter+1;
+                            f=1;
+                         } 
+                    }
+                    else 
+                    {
+                         k=(3*k)+1;
+                        if(k<max and v[k]!=0)
+                        {
+                            v[i]=v[k]+counter+1;
+                            f=1;
+                        }
+                    }
+                    counter++;
+                }
+                if(f==1)
+                continue;
+                else
+                v[i]=counter;
+        
+    }
+    m[0]=0;
+    m[1]=0;
+    m[2]=2;
+    ll max1=1;
+    ll pos;
+    for(ll i=3;i<max;++i)
+    { 
+        if(max1<=v[i])
+        {
+            m[i]=i;
+            max1=v[i];
+            pos=i;
+        }
+        else
+        m[i]=pos;
+    }
+    ll t;
+    cin>>t;
+    while(t-->0){
+        ll a;
+        cin>>a;
+        cout<<m[a]<<endl;
+    }
+    return 0;
+}
